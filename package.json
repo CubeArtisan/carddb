@@ -1,0 +1,50 @@
+{
+  "name": "@cubeartisan/carddb",
+  "packageManager": "pnpm@7.16.1",
+  "version": "1.0.0",
+  "description": "A library for managing card databases based on Scryfall data.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CubeArtisan/carddb.git"
+  },
+  "keywords": [],
+  "license": "AGPLv3",
+  "scripts": {
+    "build": "vite build",
+    "list-files": "git ls-files 'src/*.js' 'src/*.cjs' 'src/*.mjs' 'src/*.jsx' 'src/*.ts' 'src/*.tsx'",
+    "lint": "sh -c 'eslint_d `pnpm run --silent list-files`'",
+    "lint-fix": "sh -c 'eslint_d --fix `pnpm run --silent list-files`'",
+    "lint-loud": "sh -c 'eslint_d `pnpm run --silent list-files`'",
+    "test": "vitest run",
+    "checktypes": "tsc | loose-ts-check",
+    "ci": "pnpm lint && pnpm checktypes"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/carddb.js",
+  "exports": {
+    ".": {
+      "import": "./dist/carddb.js"
+    }
+  },
+  "devDependencies": {
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-array-func": "^3.1.7",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-vitest-globals": "^1.2.0",
+    "eslint_d": "^12.2.1",
+    "prettier": "^2.8.1",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.3",
+    "vite-plugin-dts": "^1.7.1",
+    "vitest": "^0.26.2"
+  },
+  "files": [
+    "dist"
+  ]
+}
