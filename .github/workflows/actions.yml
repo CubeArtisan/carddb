@@ -1,0 +1,23 @@
+name: Continuous Integration Checks
+on:
+  pull_request: {}
+  push:
+    branches:
+      - dev
+jobs:
+  "Continuous_Integration_Checks":
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18.12.1'
+
+    - name: Setup
+      run: |
+        corepack enable
+        pnpm install
+
+    - name: Run the CI script to check code style and unit tests.
+      run: pnpm ci

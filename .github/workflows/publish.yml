@@ -1,0 +1,35 @@
+name: Publish new Production Version
+on:
+  push:
+    branches:
+      - prod
+jobs:
+  publish:
+    name: Update Version and Publish to NPM
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18.12.1'
+
+    - name: Setup
+      run: |
+        corepack enable
+        pnpm install
+
+    - name: Run the CI script to check code style and unit tests.
+      run: pnpm ci
+
+    - name: Run build and package the results.
+      if: success()
+      run: pnpm build && pnpm pack
+
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npx semantic-release

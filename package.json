@@ -1,7 +1,7 @@
 {
   "name": "@cubeartisan/carddb",
   "packageManager": "pnpm@7.16.1",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "A library for managing card databases based on Scryfall data.",
   "repository": {
     "type": "git",
@@ -17,7 +17,11 @@
     "lint-loud": "sh -c 'eslint_d `pnpm run --silent list-files`'",
     "test": "vitest run",
     "checktypes": "tsc | loose-ts-check",
-    "ci": "pnpm lint && pnpm checktypes"
+    "ci": "pnpm lint && pnpm checktypes",
+    "semantic-release": "semantic-release",
+    "clean": "rm -r dist cubeartisan-carddb*.tgz",
+    "commit": "cz",
+    "prepare": "husky install"
   },
   "type": "module",
   "types": "./dist/index.d.ts",
@@ -28,6 +32,13 @@
     }
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^9.0.1",
+    "commitizen": "^4.2.6",
+    "conventional-changelog-cli": "^2.2.2",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.30.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -38,7 +49,9 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vitest-globals": "^1.2.0",
     "eslint_d": "^12.2.1",
+    "husky": "^8.0.2",
     "prettier": "^2.8.1",
+    "semantic-release": "^19.0.5",
     "typescript": "^4.9.4",
     "vite": "^4.0.3",
     "vite-plugin-dts": "^1.7.1",
@@ -46,5 +59,112 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "release": {
+    "branches": [
+      "prod"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits",
+          "parserOpts": {
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING CHANGES",
+              "BREAKING"
+            ]
+          },
+          "releaseRules": [
+            {
+              "type": "refactor",
+              "release": "patch"
+            },
+            {
+              "scope": "no-release",
+              "release": false
+            }
+          ]
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits",
+          "parserOpts": {
+            "noteKeywords": [
+              "BREAKING CHANGE",
+              "BREAKING CHANGES",
+              "BREAKING"
+            ]
+          },
+          "writerOpts": {
+            "commitsSort": [
+              "subject",
+              "scope"
+            ]
+          }
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "*.tgz",
+              "label": "CubeArtisan CardDB (${nextRelease.gitTag}) distribution"
+            }
+          ],
+          "addReleases": "bottom"
+        }
+      ],
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "RELEASE_NOTES.md",
+          "changelogTitle": "# Release Notes"
+        }
+      ],
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json",
+            "pnpm-lock.yaml",
+            "RELEASE_NOTES.md"
+          ]
+        }
+      ],
+      [
+        "semantic-release-npm-deprecate-old-versions",
+        {
+          "rules": [
+            {
+              "rule": "supportLatest",
+              "options": {
+                "numberOfMajorReleases": 1,
+                "numberOfMinorReleases": 1,
+                "numberOfPatchReleases": 1
+              }
+            },
+            "deprecateAll"
+          ]
+        }
+      ]
+    ],
+    "tagFormat": "v${version}"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && pnpm exec cz --hook || true"
+    }
+  }
 }
