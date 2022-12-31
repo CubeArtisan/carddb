@@ -17,9 +17,9 @@ export type ScryfallList<T> = {
 };
 
 export type ScryfallBulkDataObject = {
-  object: 'bulk_data',
-  id: string,
-  uri: string,
+  object: 'bulk_data';
+  id: string;
+  uri: string;
   type: 'oracle_cards' | 'unique_artwork' | 'default_cards' | 'all_cards' | 'rulings';
   name: string;
   description: string;
@@ -41,7 +41,7 @@ export type ScryfallMigration = {
   old_scryfall_id: string;
   new_scryfall_id?: string;
   note?: string;
-}
+};
 
 export type ScryfallCoreCard = {
   object: 'card';
