@@ -21,5 +21,6 @@ export default defineConfig({
   test: {
     globals: true,
     isolate: true,
+    passWithNoTests: true,
   },
 });
