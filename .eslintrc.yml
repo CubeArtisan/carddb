@@ -1,22 +1,24 @@
 env:
-  browser: true
   node: true
 extends:
   - airbnb-base
   - prettier
   - 'plugin:array-func/all'
-  - 'plugin:@typescript-eslint/recommended'
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  - "plugin:@typescript-eslint/strict"
   - 'plugin:import/typescript'
   - 'plugin:import/recommended'
   - 'eslint:recommended'
   - 'plugin:vitest-globals/recommended'
-  - 'plugin:solid/typescript'
 parser: '@typescript-eslint/parser'
+parserOptions:
+  project:
+    - ./tsconfig.json
 plugins:
   - eslint-plugin-prettier
   - promise
-  - '@typescript-eslint'
-  - solid
+  - '@typescript-eslint/eslint-plugin'
 settings:
   import/parsers:
     '@typescript-eslint/parser': ['.ts', '.tsx']
@@ -90,6 +92,7 @@ rules:
   promise/prefer-await-to-then: error
   promise/prefer-await-to-callbacks: error
   '@typescript-eslint/no-non-null-assertion': off
+  '@typescript-eslint/consistent-type-definitions': off
 overrides:
   - files:
       - '**/*.test.ts'

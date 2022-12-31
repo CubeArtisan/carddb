@@ -7,13 +7,13 @@ export default defineConfig({
   plugins: [dts()],
   resolve: {
     alias: {
-        '@cubeartisan/carddb': __dirname,
+      '@cubeartisan/carddb': __dirname,
     },
   },
   build: {
     lib: {
       entry: resolve(__dirname, 'index.ts'),
-      name: "CubeArtisan CardDB",
+      name: 'CubeArtisan CardDB',
       formats: ['es'],
     },
   },
