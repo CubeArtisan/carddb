@@ -25,6 +25,10 @@
           nodejs
           pkgs.nodejs-18_x
         ];
+        shellHook = ''
+          export PNPM_HOME=$HOME/node_modules
+          export PATH=$PATH:$PNPM_HOME
+        '';
       };
     in
     {
