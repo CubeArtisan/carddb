@@ -19,13 +19,13 @@ export type ScryfallList<T> = {
 export type ScryfallBulkDataObject = {
   object: 'bulk_data';
   id: string;
-  uri: string;
   type: 'oracle_cards' | 'unique_artwork' | 'default_cards' | 'all_cards' | 'rulings';
+  updated_at: string;
+  uri: string;
   name: string;
   description: string;
-  download_uri: string;
-  updated_at: string;
   size: number;
+  download_uri: string;
   content_type: string;
   content_encoding: string;
 };

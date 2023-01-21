@@ -9,7 +9,7 @@
     let
       pkgs = import nixpkgs {
         inherit system;
-        };
+      };
       nodejs = pkgs.stdenv.mkDerivation {
         name = "corepack-shims";
         buildInputs = [ pkgs.nodejs-18_x ];

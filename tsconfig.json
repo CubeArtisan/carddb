@@ -40,7 +40,17 @@
     "baseUrl": "./",
     "paths": {
       "@cubeartisan/carddb/*": ["./*"]
-    }
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
-  "types": ["vitest"]
+  "types": ["node", "vitest"],
+  "exclude": [
+    "dist/**/*"
+  ],
+  "include": [
+    "*.ts",
+    "types/**/*.ts"
+  ]
 }
