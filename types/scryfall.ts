@@ -30,7 +30,7 @@ export type ScryfallBulkDataObject = {
   content_encoding: string;
 };
 
-export type ScyfallBulkList = ScryfallList<ScryfallBulkDataObject>;
+export type ScryfallBulkList = ScryfallList<ScryfallBulkDataObject>;
 
 export type ScryfallMigration = {
   object: 'migration';
@@ -43,6 +43,14 @@ export type ScryfallMigration = {
   note?: string;
 };
 
+export type ScryfallRulingSource = 'wotc' | 'scryfall';
+
+export type ScryfallRuling = {
+  source: ScryfallRulingSource;
+  published_at: string;
+  comment: string;
+};
+
 export type ScryfallCoreCard = {
   object: 'card';
   arena_id?: number;
@@ -53,7 +61,7 @@ export type ScryfallCoreCard = {
   tcgplayer_id?: number;
   tcgplayer_etched_id?: number;
   cardmarket_id?: number;
-  oracle_id: string;
+  oracle_id?: string;
   prints_search_uri: string;
   rulings_uri: string;
   scryfall_uri: string;
@@ -81,14 +89,16 @@ export type ScryfallCardImages = {
   small: string;
 };
 
-export type ScryfallCardImageStatuses = {
-  png: ScryfallImageStatus;
-  border_crop: ScryfallImageStatus;
-  art_crop: ScryfallImageStatus;
-  large: ScryfallImageStatus;
-  normal: ScryfallImageStatus;
-  small: ScryfallImageStatus;
-};
+export type ScryfallCardImageStatuses =
+  | {
+      png: ScryfallImageStatus;
+      border_crop: ScryfallImageStatus;
+      art_crop: ScryfallImageStatus;
+      large: ScryfallImageStatus;
+      normal: ScryfallImageStatus;
+      small: ScryfallImageStatus;
+    }
+  | ScryfallImageStatus;
 
 export type ScryfallCardLayout = string;
 
@@ -125,31 +135,33 @@ export type ScryfallCardFinish = 'foil' | 'nonfoil' | 'etched';
 export type ScryfallCardFrame = '1993' | '1997' | '2003' | '2015' | 'future';
 
 export type ScryfallFrameEffect =
-  | 'legendary'
-  | 'miracle'
-  | 'nyxtouched'
-  | 'draft'
-  | 'devoid'
-  | 'tombstone'
   | 'colorshifted'
-  | 'inverted'
-  | 'sunmoondfc'
-  | 'compasslanddfc'
-  | 'originpwdfc'
-  | 'monoeldrazidfc'
-  | 'waxingandwaningmoondfc'
-  | 'showcase'
-  | 'extendedart'
   | 'companion'
-  | 'etched'
-  | 'snow'
-  | 'lesson'
-  | 'shatteredglass'
+  | 'compasslanddfc'
   | 'convertdfc'
+  | 'devoid'
+  | 'draft'
+  | 'etched'
+  | 'extendedart'
   | 'fandfc'
-  | 'upsidedowndfc';
+  | 'fullart'
+  | 'inverted'
+  | 'legendary'
+  | 'lesson'
+  | 'miracle'
+  | 'mooneldrazidfc'
+  | 'nyxtouched'
+  | 'originpwdfc'
+  | 'shatteredglass'
+  | 'showcase'
+  | 'snow'
+  | 'sunmoondfc'
+  | 'textless'
+  | 'tombstone'
+  | 'upsidedowndfc'
+  | 'waxingandwaningmoondfc';
 
-export type ScryfallGame = 'paper' | 'arena' | 'mtgo';
+export type ScryfallGame = 'paper' | 'arena' | 'mtgo' | 'astral' | 'sega';
 
 export type ScryfallCardPrices = {
   usd: string | null;
@@ -170,7 +182,7 @@ export type ScryfallPrintFields = {
   attraction_lights?: number[];
   booster: boolean;
   border_color: ScryfallBorderColor;
-  card_back_id: string;
+  card_back_id?: string;
   collector_number: string;
   content_warning?: boolean;
   digital: boolean;
@@ -191,7 +203,7 @@ export type ScryfallPrintFields = {
   printed_type_line?: string;
   promo: boolean;
   promo_types?: ScryfallPromoType[];
-  purchase_uris: Record<string, string>;
+  purchase_uris?: Record<string, string>;
   rarity: ScryfallCardRarity;
   related_uris: Record<string, string>;
   released_at: string;
@@ -243,7 +255,7 @@ export type ScryfallLegalities = {
 export type ScryfallGameplayFields = {
   all_parts?: ScryfallRelatedCard[];
   card_faces?: ScryfallCardFace[];
-  cmc: number;
+  cmc?: number;
   color_identity: Color[];
   color_indicator?: Color[];
   colors?: Color[];
@@ -260,8 +272,15 @@ export type ScryfallGameplayFields = {
   oversized: boolean;
   penny_rank?: number;
   power?: string;
-  produced_mana: (Color | 'C')[];
+  produced_mana?: (Color | 'C' | 'T' | '2')[];
   reserved: boolean;
   toughness?: string;
-  type_line: string;
+  type_line?: string;
 };
+
+export type ScryfallCard = ScryfallCoreCard &
+  ScryfallGameplayFields &
+  ScryfallPrintFields & {
+    card_faces?: ScryfallCardFace[];
+    all_parts?: ScryfallRelatedCard[];
+  };

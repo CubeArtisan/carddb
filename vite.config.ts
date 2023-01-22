@@ -1,16 +1,16 @@
 import { resolve } from 'path';
 
+import typescript from '@rollup/plugin-typescript';
+import ttypescript from 'ttypescript';
 import dts from 'vite-plugin-dts';
-import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [
     dts(),
-    // nodePolyfills({
-    //   // Whether to polyfill `node:` protocol imports.
-    //   protocolImports: true,
-    // }),
+    typescript({
+      typescript: ttypescript,
+    }),
   ],
   resolve: {
     alias: {
@@ -19,7 +19,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['node:fs', 'node:stream', 'node:stream/promises'],
+      external: ['node:fs', 'node:stream', 'node:stream/promises', 'node:fs/promises'],
     },
     lib: {
       entry: resolve(__dirname, 'index.ts'),

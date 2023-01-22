@@ -8,6 +8,7 @@ tmp/
 *.old
 .DS_Store
 .solid/
+.rollup.cache/
 
 .python-version
 
