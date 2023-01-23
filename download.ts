@@ -4,7 +4,7 @@ import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
 
 import { parseChunked } from '@discoveryjs/json-ext';
-import { assert, assertParse, assertStringify, createAssert, createIs, createValidate } from 'typia';
+import { assert, assertStringify, createAssert, createIs, createValidate } from 'typia';
 
 import type {
   ScryfallBulkDataObject,
