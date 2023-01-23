@@ -41,7 +41,7 @@
     "@types/lodash": "4.14.191",
     "@types/node": "^18.11.18",
     "@types/prettier": "^2.7.2",
-    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.48.2",
     "big-json": "^3.2.0",
     "commitizen": "^4.3.0",
