@@ -93,6 +93,7 @@ rules:
   promise/prefer-await-to-callbacks: error
   '@typescript-eslint/no-non-null-assertion': off
   '@typescript-eslint/consistent-type-definitions': off
+  '@typescript-eslint/no-dynamic-delete': off
 overrides:
   - files:
       - '**/*.test.ts'

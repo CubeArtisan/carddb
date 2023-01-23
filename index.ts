@@ -1,1 +1,1 @@
-export default (x: number) => x * x;
+export * from '@cubeartisan/carddb/download';

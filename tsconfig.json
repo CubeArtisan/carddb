@@ -40,7 +40,22 @@
     "baseUrl": "./",
     "paths": {
       "@cubeartisan/carddb/*": ["./*"]
-    }
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "plugins": [
+      {
+        "transform": "typia/lib/transform"
+      }
+    ]
   },
-  "types": ["vitest"]
+  "types": ["node", "vitest"],
+  "exclude": [
+    "dist/**/*"
+  ],
+  "include": [
+    "*.ts",
+    "types/**/*.ts"
+  ]
 }
