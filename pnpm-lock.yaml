@@ -31,6 +31,7 @@ specifiers:
   semantic-release: ^19.0.5
   ts-node: ^10.9.1
   ttypescript: ^1.5.15
+  type-fest: ^3.5.3
   typescript: ^4.9.4
   typia: ^3.4.22
   undici: ^5.15.1
@@ -69,6 +70,7 @@ devDependencies:
   semantic-release: 19.0.5
   ts-node: 10.9.1_awa2wsr5thmg3i7jqycphctjfq
   ttypescript: 1.5.15_z6wznmtyb6ovnulj6iujpct7um
+  type-fest: 3.5.3
   typescript: 4.9.4
   typia: 3.4.22_bdozwspg4olslwdzpxy3uyklu4
   undici: 5.15.1
@@ -4889,6 +4891,11 @@ packages:
   /type-fest/1.4.0:
     resolution: {integrity: sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==}
     engines: {node: '>=10'}
+    dev: true
+
+  /type-fest/3.5.3:
+    resolution: {integrity: sha512-V2+og4j/rWReWvaFrse3s9g2xvUv/K9Azm/xo6CjIuq7oeGqsoimC7+9/A3tfvNcbQf8RPSVj/HV81fB4DJrjA==}
+    engines: {node: '>=14.16'}
     dev: true
 
   /typed-array-length/1.0.4:
