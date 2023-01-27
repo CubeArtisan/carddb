@@ -67,7 +67,7 @@
     "undici": "^5.15.1",
     "vite": "^4.0.4",
     "vite-plugin-dts": "^1.7.1",
-    "vitest": "^0.27.3"
+    "vitest": "^0.28.3"
   },
   "files": [
     "dist"
