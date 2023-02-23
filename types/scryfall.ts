@@ -320,6 +320,9 @@ export type ScryfallPrintFields = {
   purchase_uris?: Record<string, string>;
   rarity: ScryfallCardRarity;
   related_uris: Record<string, string>;
+  /**
+   * @format date
+   */
   released_at: string;
   reprint: boolean;
   /**
