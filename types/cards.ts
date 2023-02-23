@@ -155,7 +155,6 @@ export type CardFace = {
   mana_cost: ManaSymbol[];
   images: CardImages;
   cmc: number;
-  color_identity: Color[];
   color_indicator?: Color[];
   colors: Color[];
   layout?: ScryfallCardLayout;
@@ -197,6 +196,17 @@ export type RelatedCard = {
   kind: 'token' | 'meld_part' | 'meld_result' | 'combo_piece';
 };
 
+export type ColorCategory =
+  | 'White'
+  | 'Blue'
+  | 'Black'
+  | 'Red'
+  | 'Green'
+  | 'Hybrid'
+  | 'Multicolored'
+  | 'Colorless'
+  | 'Land';
+
 export type Card = {
   id: string;
   source: CardSource;
@@ -207,6 +217,8 @@ export type Card = {
    * @minLength 1
    */
   cardFaces: CardFace[];
+  color_category: ColorCategory;
+  color_identity: Color[];
   related?: RelatedCard[];
   legalities: ScryfallLegalities;
   edhrec_rank?: number;
