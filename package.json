@@ -1,7 +1,7 @@
 {
     "name": "@cubeartisan/carddb",
     "packageManager": "pnpm@7.16.1",
-    "version": "0.0.0-development",
+    "version": "1.0.0",
     "description": "A library for managing card databases based on Scryfall data.",
     "repository": {
         "type": "git",
