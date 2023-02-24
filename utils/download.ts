@@ -44,7 +44,7 @@ export const readLargeJson = async (path: string) => {
   return parseChunked(contents);
 };
 
-export const validateCardArray = createValidate<ScryfallCard[]>();
+export const validateScryfallCardArray = createValidate<ScryfallCard[]>();
 export const validateRulingArray = createValidate<ScryfallRuling[]>();
 
 export const isBulkData = createIs<ScryfallBulkList>();
@@ -52,10 +52,10 @@ export const isBulkData = createIs<ScryfallBulkList>();
 export type LastUpdatedDates = { [K in ScryfallBulkDataObject['type']]?: Date };
 
 const VERIFIER = {
-  oracle_cards: validateCardArray,
-  unique_artwork: validateCardArray,
-  default_cards: validateCardArray,
-  all_cards: validateCardArray,
+  oracle_cards: validateScryfallCardArray,
+  unique_artwork: validateScryfallCardArray,
+  default_cards: validateScryfallCardArray,
+  all_cards: validateScryfallCardArray,
   rulings: validateRulingArray,
 };
 
