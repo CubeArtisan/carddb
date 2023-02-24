@@ -15,7 +15,6 @@ import type {
 } from '@cubeartisan/carddb/types/scryfall';
 
 export type ManaSymbol =
-  | Color
   | 'W'
   | 'U'
   | 'B'
@@ -105,90 +104,85 @@ export type CardImages = {
   /**
    * @format url
    */
-  border_crop?: string;
+  borderCrop?: string;
   /**
    * @format url
    */
-  art_crop?: string;
+  artCrop?: string;
 };
 
 export type ExternalCardIds = {
   /**
    * @type uint
    */
-  arena_id?: number;
+  arenaId?: number;
   /**
    * @format uuid
    */
-  scryfall_id?: string;
+  scryfallId?: string;
   /**
    * @type uint
    */
-  mtgo_id?: number;
+  mtgoId?: number;
   /**
    * @type uint
    */
-  mtgo_foil_id?: number;
-  multiverse_ids?: number[];
+  mtgoFoilId?: number;
+  multiverseIds?: number[];
   /**
    * @type uint
    */
-  tcgplayer_id?: number;
+  tcgplayerId?: number;
   /**
    * @type uint
    */
-  tcgplayer_etched_id?: number;
+  tcgplayerEtchedId?: number;
   /**
    * @type uint
    */
-  cardmarket_id?: number;
+  cardmarketId?: number;
   /**
-   * @type uuid
+   * @format uuid
    */
-  oracle_id?: string;
+  oracleId?: string;
 };
 
 export type CardSource = 'scryfall' | 'custom';
 
 export type CardFace = {
   name: string;
-  mana_cost: ManaSymbol[];
+  manaCost: ManaSymbol[];
   images: CardImages;
   cmc: number;
-  color_indicator?: Color[];
+  colorIndicator?: Color[];
   colors: Color[];
   layout?: ScryfallCardLayout;
   loyalty?: string;
-  oracle_text: string;
+  oracleText: string;
   power?: string;
-  produced_mana?: (Color | 'C')[];
+  producedMana?: (Color | 'C')[];
   toughness?: string;
-  type_line: string;
-  flavor_text?: string;
+  typeLine: string;
+  flavorText?: string;
   /**
    * @format uuid
    */
-  illustration_id?: string;
-  /**
-   * @format uuid
-   */
-  oracle_id?: string;
-  printed_name?: string;
-  printed_text?: string;
-  printed_type_line?: string;
+  illustrationId?: string;
+  printedName?: string;
+  printedText?: string;
+  printedTypeLine?: string;
   watermark?: ScryfallWatermark;
   artist?: string;
-  attraction_lights?: number[];
-  border_color: ScryfallBorderColor;
-  collector_number: string;
-  flavor_name?: string;
-  frame_effects?: ScryfallFrameEffect[];
+  attractionLights?: number[];
+  borderColor: ScryfallBorderColor;
+  flavorName?: string;
+  frameEffects?: ScryfallFrameEffect[];
   frame: ScryfallCardFrame;
-  full_art: boolean;
-  highres_image: boolean;
-  story_spotlight: boolean;
+  fullArt: boolean;
+  highresImage: boolean;
+  storySpotlight: boolean;
   textless: boolean;
-  security_stamp?: ScryfallCardSecurityStamp;
+  securityStamp?: ScryfallCardSecurityStamp;
 };
 
 export type RelatedCard = {
@@ -213,43 +207,42 @@ export type Card = {
   externalIds: ExternalCardIds;
   /**
    * Face specific details of the card
-   *
-   * @minLength 1
    */
   cardFaces: CardFace[];
-  color_category: ColorCategory;
-  color_identity: Color[];
+  collectorNumber: string;
+  colorCategory: ColorCategory;
+  colorIdentity: Color[];
   related?: RelatedCard[];
   legalities: ScryfallLegalities;
-  edhrec_rank?: number;
-  hand_modifier?: string;
+  edhrecRank?: number;
+  handModifier?: string;
+  lifeModifier?: string;
   keywords: string[];
-  life_modifier?: string;
   oversized: boolean;
-  penny_rank?: number;
+  pennyRank?: number;
   reserved: boolean;
   booster: boolean;
-  content_warning?: boolean;
+  contentWarning?: boolean;
   digital: boolean;
   finishes: ScryfallCardFinish[];
   games: ScryfallGame[];
   prices: ScryfallCardPrices;
   promo: boolean;
-  promo_types?: ScryfallPromoType[];
-  purchase_uris?: Record<string, string>;
+  promoTypes?: ScryfallPromoType[];
+  purchaseUris?: Record<string, string>;
   rarity: ScryfallCardRarity;
-  related_uris: Record<string, string>;
+  relatedUris: Record<string, string>;
   /**
    * @format date
    */
-  released_at: string;
+  releasedAt: string;
   reprint: boolean;
-  set_name: string;
-  set_type: string;
+  setName: string;
+  setType: string;
   set: string;
-  set_id: string;
+  setId: string;
   variation: boolean;
-  variation_of?: string;
+  variationOf?: string;
   preview?: {
     /**
      * @format date
