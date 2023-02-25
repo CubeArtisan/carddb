@@ -1,5 +1,12 @@
 # Release Notes
 
+## [1.0.1](https://github.com/CubeArtisan/carddb/compare/v1.0.0...v1.0.1) (2023-02-25)
+
+
+### Bug Fixes
+
+* **download:** Fix download when no existing cache exists. ([360e974](https://github.com/CubeArtisan/carddb/commit/360e9744443c77b482eb4866bf8d28a8a75589f1))
+
 ## 1.0.0 (2023-02-24)
 
 

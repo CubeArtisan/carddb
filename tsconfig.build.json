@@ -7,7 +7,16 @@
         "isolatedModules": false,
         "noEmit": false,
         "esModuleInterop": true,
-        "outDir": "./dist"
+        "declarationDir": "dist",
+        "outDir": "dist",
+        "importHelpers": true,
+        "baseUrl": "./",
+        "plugins": [
+            {
+                "transform": "typescript-transform-paths",
+                "afterDeclarations": true
+            }
+        ]
     },
     "exclude": [
         "vite.config.ts"
