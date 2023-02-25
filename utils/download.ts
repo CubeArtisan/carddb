@@ -77,15 +77,18 @@ const updateSpecificBulkData = async (bulkInfo: ScryfallBulkDataObject, lastUpda
 };
 
 export const getLastUpdated = async (path = 'data/last_updated.json') => {
-  const contents = await readFile(path);
-  return assert<LastUpdatedDates>(
-    Object.fromEntries(
-      Object.entries(JSON.parse(contents.toString()) as Record<keyof LastUpdatedDates, string>).map(([key, value]) => [
-        key,
-        new Date(value),
-      ]),
-    ),
-  );
+  try {
+    const contents = await readFile(path);
+    return assert<LastUpdatedDates>(
+      Object.fromEntries(
+        Object.entries(JSON.parse(contents.toString()) as Record<keyof LastUpdatedDates, string>).map(
+          ([key, value]) => [key, new Date(value)],
+        ),
+      ),
+    );
+  } catch (e) {
+    return {};
+  }
 };
 
 export const writeLastUpdated = async (lastUpdated: LastUpdatedDates, path = 'data/last_updated.json') => {
