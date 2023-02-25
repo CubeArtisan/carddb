@@ -1,5 +1,12 @@
 # Release Notes
 
+## [1.0.2](https://github.com/CubeArtisan/carddb/compare/v1.0.1...v1.0.2) (2023-02-25)
+
+
+### Bug Fixes
+
+* **types:** Fix relative import of typings. ([7e6a4ca](https://github.com/CubeArtisan/carddb/commit/7e6a4cad634f381231072216eb3a1dbc74874ff3))
+
 ## [1.0.1](https://github.com/CubeArtisan/carddb/compare/v1.0.0...v1.0.1) (2023-02-25)
 
 
