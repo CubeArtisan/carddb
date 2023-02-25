@@ -1,2 +1,54 @@
-export * from '@cubeartisan/carddb/utils/download';
-export * from '@cubeartisan/carddb/utils/convert';
+export {
+  getBulkDataInfo,
+  downloadBulkData,
+  readLargeJson,
+  validateScryfallCardArray,
+  validateRulingArray,
+  getLastUpdated,
+  writeLastUpdated,
+  updateAllBulkData,
+} from '@cubeartisan/carddb/utils/download';
+export type { LastUpdatedDates } from '@cubeartisan/carddb/utils/download';
+export { convertCard } from '@cubeartisan/carddb/utils/convert';
+
+export type {
+  ManaSymbol,
+  CardImages,
+  ExternalCardIds,
+  CardSource,
+  CardFace,
+  RelatedCard,
+  ColorCategory,
+  Card,
+} from '@cubeartisan/carddb/types/cards';
+export type {
+  ScryfallError,
+  ScryfallList,
+  ScryfallBulkDataObject,
+  ScryfallMigration,
+  ScryfallRulingSource,
+  ScryfallRuling,
+  ScryfallCoreCard,
+  ScryfallRelatedCard,
+  Color,
+  ScryfallImageStatus,
+  ScryfallCardImages,
+  ScryfallCardImageStatuses,
+  ScryfallCardLayout,
+  ScryfallWatermark,
+  ScryfallCardFace,
+  ScryfallBorderColor,
+  ScryfallCardFinish,
+  ScryfallCardFrame,
+  ScryfallFrameEffect,
+  ScryfallGame,
+  ScryfallCardPrices,
+  ScryfallPromoType,
+  ScryfallCardRarity,
+  ScryfallCardSecurityStamp,
+  ScryfallPrintFields,
+  ScryfallLegality,
+  ScryfallLegalities,
+  ScryfallGameplayFields,
+  ScryfallCard,
+} from '@cubeartisan/carddb/types/scryfall';
