@@ -82,8 +82,8 @@ const arraysAreEqualSets = <T>(a1: T[], a2: T[]): boolean => {
 };
 
 const sortColors = (colors: Color[]): Color[] => {
-  for (let i = 0; i < COLOR_COMBINATIONS.length; i++) {
-    if (arraysAreEqualSets(colors, COLOR_COMBINATIONS[i])) return COLOR_COMBINATIONS[i];
+  for (const combo of COLOR_COMBINATIONS) {
+    if (arraysAreEqualSets(colors, combo)) return combo;
   }
   throw new Error(`Unknown color combination ${colors.join('')}`);
 };
@@ -95,6 +95,7 @@ const toManaCost = (stringCost: string): ManaSymbol[] => {
 
 const copyIfExists = <U, T extends U>(original: T, assignee: U, keys: (keyof T & keyof U)[]): U => {
   for (const field of keys) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if ((original[field] ?? null) !== null) assignee[field] = original[field];
   }
   return assignee;

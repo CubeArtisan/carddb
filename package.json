@@ -10,7 +10,7 @@
     "keywords": [],
     "license": "AGPLv3",
     "scripts": {
-        "build": "vite build",
+        "build": "vite build && ttsc -p tsconfig.build.json",
         "list-files": "git ls-files '*.js' '*.cjs' '*.mjs' '*.jsx' '*.ts' '*.tsx'",
         "lint": "sh -c 'eslint `pnpm run --silent list-files`'",
         "lint-fix": "sh -c 'eslint --fix `pnpm run --silent list-files`'",
@@ -19,18 +19,15 @@
         "checktypes": "ttsc",
         "ci": "pnpm lint && pnpm checktypes && pnpm test",
         "semantic-release": "semantic-release",
-        "clean": "rm -r dist cubeartisan-carddb*.tgz",
+        "rebuild": "pnpm run clean; pnpm run build && pnpm pack",
+        "clean": "rm -r dist cubeartisan-carddb*.tgz .rollup.cache tsconfig.tsbuildinfo",
         "commit": "cz",
         "prepare": "husky install"
     },
     "type": "module",
     "types": "./dist/index.d.ts",
-    "module": "./dist/carddb.js",
-    "exports": {
-        ".": {
-            "import": "./dist/carddb.js"
-        }
-    },
+    "module": "./dist/index.js",
+    "main": "./dist/index.js",
     "devDependencies": {
         "@discoveryjs/json-ext": "^0.5.7",
         "@rollup/plugin-typescript": "^11.0.0",
@@ -68,7 +65,6 @@
         "typia": "^3.5.8",
         "undici": "^5.20.0",
         "vite": "^4.1.4",
-        "vite-plugin-dts": "^1.7.3",
         "vitest": "^0.27.3"
     },
     "files": [

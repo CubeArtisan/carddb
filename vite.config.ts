@@ -2,12 +2,10 @@ import { resolve } from 'path';
 
 import typescript from '@rollup/plugin-typescript';
 import ttypescript from 'ttypescript';
-import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [
-    dts(),
     typescript({
       typescript: ttypescript,
     }),
@@ -22,6 +20,7 @@ export default defineConfig({
       external: ['node:fs', 'node:stream', 'node:stream/promises', 'node:fs/promises'],
     },
     lib: {
+      fileName: 'index',
       entry: resolve(__dirname, 'index.ts'),
       name: 'CubeArtisan CardDB',
       formats: ['es'],
