@@ -41,8 +41,6 @@
         "types": [
             "vite/client"
         ],
-        "baseUrl": "./",
-        "rootDir": "./",
         "paths": {
             "@cubeartisan/carddb/*": [
                 "./*"
