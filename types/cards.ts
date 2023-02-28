@@ -201,6 +201,20 @@ export type ColorCategory =
   | 'Colorless'
   | 'Land';
 
+export type CardStatus = 'Not Owned' | 'Ordered' | 'Owned' | 'Premium Owned' | 'Proxied';
+
+export type CardMetadata = {
+  tags: string[];
+  price?: number;
+  notes: string;
+  /**
+   * @format date
+   */
+  addedTmsp: string;
+  finish: ScryfallCardFinish;
+  status: CardStatus;
+};
+
 export type Card = {
   id: string;
   source: CardSource;
@@ -212,7 +226,7 @@ export type Card = {
   collectorNumber: string;
   colorCategory: ColorCategory;
   colorIdentity: Color[];
-  related?: RelatedCard[];
+  related: RelatedCard[];
   legalities: ScryfallLegalities;
   edhrecRank?: number;
   handModifier?: string;
@@ -222,16 +236,15 @@ export type Card = {
   pennyRank?: number;
   reserved: boolean;
   booster: boolean;
-  contentWarning?: boolean;
   digital: boolean;
   finishes: ScryfallCardFinish[];
   games: ScryfallGame[];
   prices: ScryfallCardPrices;
   promo: boolean;
-  promoTypes?: ScryfallPromoType[];
+  promoTypes: ScryfallPromoType[];
   purchaseUris?: Record<string, string>;
   rarity: ScryfallCardRarity;
-  relatedUris: Record<string, string>;
+  relatedUris?: Record<string, string>;
   /**
    * @format date
    */
@@ -247,11 +260,12 @@ export type Card = {
     /**
      * @format date
      */
-    previewed_at?: string;
+    previewedAt?: string;
     /**
      * @format uri
      */
-    source_uri?: string;
+    sourceUri?: string;
     source?: string;
   };
+  metadata?: CardMetadata;
 };
