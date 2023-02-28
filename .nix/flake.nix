@@ -24,11 +24,13 @@
         buildInputs = [
           nodejs
           pkgs.nodejs-18_x
+          pkgs.pkg-config
+          pkgs.emscripten
+          pkgs.conan
+          pkgs.cmake
+          pkgs.ninja
+          pkgs.closurecompiler
         ];
-        shellHook = ''
-          export PNPM_HOME=$HOME/node_modules
-          export PATH=$PATH:$PNPM_HOME
-        '';
       };
     in
     {

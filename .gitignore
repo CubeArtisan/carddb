@@ -9,6 +9,8 @@ tmp/
 .DS_Store
 .solid/
 .rollup.cache/
+build/
+.ccls-cache/
 
 .python-version
 
