@@ -28,20 +28,20 @@ struct CardFace {
   std::optional<std::vector<double>> attraction_lights;
   std::string border_color;
   std::optional<std::string> flavor_name;
-  std::optional<std::vector<std::string>> frameEffects;
+  std::optional<std::vector<std::string>> frame_effects;
   std::string frame;
   bool full_art;
   bool highres_image;
   bool story_spotlight;
   bool textless;
-  std::optional<std::string> securityStamp;
+  std::optional<std::string> security_stamp;
 };
 
 struct CardMetadata {
   std::vector<std::string> tags;
   std::optional<double> price;
   std::string notes;
-  std::string addedTmsp;
+  std::string added_tmsp;
   std::string finish;
   std::string status;
 };
@@ -92,6 +92,8 @@ struct Card {
   std::string source;
   std::vector<CardFace> card_faces;
   std::string collector_number;
+  double cmc;
+  std::vector<std::string> colors;
   std::string color_category;
   std::string color_identity;
   std::vector<RelatedCard> related;

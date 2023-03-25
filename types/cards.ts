@@ -153,9 +153,15 @@ export type CardFace = {
   name: string;
   manaCost: ManaSymbol[];
   images: CardImages;
-  cmc: number;
   colorIndicator?: Color[];
+  /**
+   * The colors of the card face.
+   */
   colors: Color[];
+  /**
+   * The cmc of the card face.
+   */
+  cmc: number;
   layout?: ScryfallCardLayout;
   loyalty?: string;
   oracleText: string;
@@ -223,6 +229,14 @@ export type Card = {
    * Face specific details of the card
    */
   cardFaces: CardFace[];
+  /**
+   * The colors of the card in zones other than the stack/battlefield.
+   */
+  colors: Color[];
+  /**
+   * The cmc of the card in zones other than the stack/battlefield.
+   */
+  cmc: number;
   collectorNumber: string;
   colorCategory: ColorCategory;
   colorIdentity: Color[];
