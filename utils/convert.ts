@@ -169,6 +169,8 @@ export const convertCard = (originalCard: ScryfallCard): Card => {
   const card: Card = {
     id: `scry:${originalCard.id}`,
     source: 'scryfall',
+    name: originalCard.layout !== 'split' ? cardFaces[0].name : cardFaces.map((c) => c.name).join(' // '),
+    layout: originalCard.layout,
     cmc: 0,
     colors: [],
     externalIds,

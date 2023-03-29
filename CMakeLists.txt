@@ -19,9 +19,14 @@ FetchContent_MakeAvailable(lexy)
 
 add_subdirectory(extern/fmt EXCLUDE_FROM_ALL)
 
-add_library(CardDB INTERFACE "include/cubeartisan/carddb/card.hpp")
+add_library(
+  CardDB INTERFACE "include/cubeartisan/carddb/card.hpp"
+  "include/cubeartisan/carddb/grammar/utils.hpp"
+  "include/cubeartisan/carddb/grammar/values.hpp")
 
 target_include_directories(CardDB INTERFACE "include")
+
+target_compile_definitions(CardDB INTERFACE LEXY_HAS_NTTP)
 
 target_compile_features(CardDB INTERFACE cxx_std_20)
 

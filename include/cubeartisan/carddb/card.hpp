@@ -90,6 +90,8 @@ struct CardPreviewInfo {
 struct Card {
   std::string id;
   std::string source;
+  std::string name;
+  std::string layout;
   std::vector<CardFace> card_faces;
   std::string collector_number;
   double cmc;

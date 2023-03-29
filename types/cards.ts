@@ -226,6 +226,11 @@ export type Card = {
   source: CardSource;
   externalIds: ExternalCardIds;
   /**
+   * The name that can be used for importing this card.
+   */
+  name: string;
+  layout: ScryfallCardLayout;
+  /**
    * Face specific details of the card
    */
   cardFaces: CardFace[];
