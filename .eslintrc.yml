@@ -94,9 +94,30 @@ rules:
   '@typescript-eslint/no-non-null-assertion': off
   '@typescript-eslint/consistent-type-definitions': off
   '@typescript-eslint/no-dynamic-delete': off
+ignorePatterns:
+  - emscripten/**/*.js
 overrides:
   - files:
       - '**/*.test.ts'
       - '**/*.test.tsx'
     env:
       vitest-globals/env: true
+  # - files:
+  #     - 'emscripten/**/*.js'
+  #   parserOptions:
+  #     project: null
+  #   rules:
+  #     '@typescript-eslint/dot-notation': off
+  #     '@typescript-eslint/no-base-to-string': off
+  #     '@typescript-eslint/no-meaningless-void-operator': off
+  #     '@typescript-eslint/no-mixed-enums': off
+  #     '@typescript-eslint/no-throw-literal': off
+  #     '@typescript-eslint/no-unnecessary-boolean-literal-compare': off
+  #     '@typescript-eslint/no-unnecessary-condition': off
+  #     '@typescript-eslint/no-unnecessary-type-arguments': off
+  #     '@typescript-eslint/non-nullable-type-assertion-style': off
+  #     '@typescript-eslint/prefer-includes': off
+  #     '@typescript-eslint/prefer-nullish-coalescing': off
+  #     '@typescript-eslint/prefer-reduce-type-parameter': off
+  #     '@typescript-eslint/prefer-return-this-type': off
+  #     '@typescript-eslint/prefer-string-starts-ends-with': off

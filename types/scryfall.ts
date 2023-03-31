@@ -193,6 +193,8 @@ export type ScryfallCardImageStatuses =
     }
   | ScryfallImageStatus;
 
+export type ScryfallFaceLayout = string;
+
 export type ScryfallCardLayout = string;
 
 export type ScryfallWatermark = string;
@@ -208,7 +210,7 @@ export type ScryfallCardFace = {
   flavor_text?: string;
   illustration_id?: string;
   image_uris?: ScryfallCardImages;
-  layout?: ScryfallCardLayout;
+  layout?: ScryfallFaceLayout;
   loyalty?: string;
   /**
    * @format uuid
