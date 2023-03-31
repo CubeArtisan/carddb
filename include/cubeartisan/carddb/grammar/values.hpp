@@ -181,12 +181,91 @@ struct colors {
   static constexpr auto rule =
       dsl::symbol<color_name_table>(dsl::identifier(dsl::ascii::alpha)) |
       (dsl::peek(color_class) >>
-       dsl::flags(dsl::symbol<color_table>(dsl::ascii::alpha)));
+       dsl::flags(dsl::symbol<color_table>(color_class)));
 
   static constexpr auto value = lexy::forward<color_value>;
 };
 
-struct color_names {};
+using color = one_of_lit_rule<"w", "u", "b", "r", "g">::named<"color">;
+
+// A json value that is a string.
+struct string : lexy::token_production {
+  struct invalid_char {
+    static LEXY_CONSTEVAL auto name() {
+      return "invalid character in string literal";
+    }
+  };
+
+  // A mapping of the simple escape sequences to their replacement values.
+  static constexpr auto escaped_symbols = lexy::symbol_table<char> //
+                                              .map<'\''>('\'')
+                                              .map<'"'>('"')
+                                              .map<'\\'>('\\')
+                                              .map<'/'>('/')
+                                              .map<'b'>('\b')
+                                              .map<'f'>('\f')
+                                              .map<'n'>('\n')
+                                              .map<'r'>('\r')
+                                              .map<'t'>('\t');
+
+  // In JSON, a Unicode code point can be specified by its encoding in UTF-16:
+  // * code points <= 0xFFFF are specified using `\uNNNN`.
+  // * other code points are specified by two surrogate UTF-16 sequences.
+  // However, we don't combine the two surrogates into the final code point,
+  // instead keep them separate and require a later pass that merges them if
+  // necessary. (This behavior is allowed by the standard).
+  struct code_point_id {
+    // We parse the integer value of a UTF-16 code unit.
+    static constexpr auto rule =
+        LEXY_LIT("u") >> dsl::code_unit_id<lexy::utf8_encoding, 4>;
+    // And convert it into a code point, which might be a surrogate.
+    static constexpr auto value = lexy::construct<lexy::code_point>;
+  };
+
+  static constexpr auto rule = [] {
+    // Everything is allowed inside a string except for control characters.
+    auto code_point = (-dsl::unicode::control).error<invalid_char>;
+
+    // Escape sequences start with a backlash and either map one of the symbols,
+    // or a Unicode code point.
+    auto escape = dsl::backslash_escape.symbol<escaped_symbols>().rule(
+        dsl::p<code_point_id>);
+
+    // String of code_point with specified escape sequences, surrounded by ".
+    // We abort string parsing if we see a newline to handle missing closing ".
+    return (dsl::peek(dsl::lit_c<'"'>) >>
+            dsl::quoted.limit(dsl::unicode::newline)(code_point, escape)) |
+           (dsl::peek(dsl::lit_c<'\''>) >>
+            dsl::single_quoted.limit(dsl::unicode::newline)(code_point,
+                                                            escape)) |
+           (dsl::peek(dsl::unicode::alpha_digit) >>
+            dsl::identifier(dsl::unicode::alpha_digit));
+  }();
+
+  static constexpr auto value =
+      lexy::as_string<std::string, lexy::utf8_encoding>;
+};
+
+using inner_mana_symbol =
+    one_of_lit_rule<"w", "u", "b", "r", "g", "c", "w/u", "u/b", "b/r", "r/g",
+                    "g/w", "w/b", "u/r", "b/g", "r/w", "g/u", "2/w", "2/u",
+                    "2/b", "2/r", "2/g", "p", "w/p", "u/p", "b/p", "r/p", "g/p",
+                    "w/u/p", "u/b/p", "b/r/p", "r/g/p", "g/w/p", "w/b/p",
+                    "u/r/p", "b/g/p", "r/w/p", "g/u/p", "s", "0", "1", "2", "3",
+                    "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14",
+                    "15", "16", "17", "18", "19", "20", "100", "1000000", "x",
+                    "y", "z", "hw", "hr">::named<"inner_mana_symbol">;
+
+struct mana_symbol : lexy::token_production {
+  static constexpr auto rule =
+      (dsl::peek(dsl::lit_c<'{'>) >>
+       (dsl::lit_c<'{'> + dsl::p<inner_mana_symbol> + dsl::lit_c<'}'>)) |
+      (dsl::peek(dsl::lit_c<'('>) >>
+       (dsl::lit_c<'('> + dsl::p<inner_mana_symbol> + dsl::lit_c<')'>)) |
+      dsl::p<inner_mana_symbol>;
+
+  static constexpr auto value = lexy::forward<std::string>;
+};
 
 } // namespace cubeartisan::carddb::grammar
 
