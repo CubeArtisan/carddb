@@ -153,9 +153,15 @@ export type CardFace = {
   name: string;
   manaCost: ManaSymbol[];
   images: CardImages;
-  cmc: number;
   colorIndicator?: Color[];
+  /**
+   * The colors of the card face.
+   */
   colors: Color[];
+  /**
+   * The cmc of the card face.
+   */
+  cmc: number;
   layout?: ScryfallCardLayout;
   loyalty?: string;
   oracleText: string;
@@ -201,18 +207,45 @@ export type ColorCategory =
   | 'Colorless'
   | 'Land';
 
+export type CardStatus = 'Not Owned' | 'Ordered' | 'Owned' | 'Premium Owned' | 'Proxied';
+
+export type CardMetadata = {
+  tags: string[];
+  price?: number;
+  notes: string;
+  /**
+   * @format date
+   */
+  addedTmsp: string;
+  finish: ScryfallCardFinish;
+  status: CardStatus;
+};
+
 export type Card = {
   id: string;
   source: CardSource;
   externalIds: ExternalCardIds;
   /**
+   * The name that can be used for importing this card.
+   */
+  name: string;
+  layout: ScryfallCardLayout;
+  /**
    * Face specific details of the card
    */
   cardFaces: CardFace[];
+  /**
+   * The colors of the card in zones other than the stack/battlefield.
+   */
+  colors: Color[];
+  /**
+   * The cmc of the card in zones other than the stack/battlefield.
+   */
+  cmc: number;
   collectorNumber: string;
   colorCategory: ColorCategory;
   colorIdentity: Color[];
-  related?: RelatedCard[];
+  related: RelatedCard[];
   legalities: ScryfallLegalities;
   edhrecRank?: number;
   handModifier?: string;
@@ -222,16 +255,15 @@ export type Card = {
   pennyRank?: number;
   reserved: boolean;
   booster: boolean;
-  contentWarning?: boolean;
   digital: boolean;
   finishes: ScryfallCardFinish[];
   games: ScryfallGame[];
   prices: ScryfallCardPrices;
   promo: boolean;
-  promoTypes?: ScryfallPromoType[];
+  promoTypes: ScryfallPromoType[];
   purchaseUris?: Record<string, string>;
   rarity: ScryfallCardRarity;
-  relatedUris: Record<string, string>;
+  relatedUris?: Record<string, string>;
   /**
    * @format date
    */
@@ -247,11 +279,12 @@ export type Card = {
     /**
      * @format date
      */
-    previewed_at?: string;
+    previewedAt?: string;
     /**
      * @format uri
      */
-    source_uri?: string;
+    sourceUri?: string;
     source?: string;
   };
+  metadata?: CardMetadata;
 };

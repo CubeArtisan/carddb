@@ -169,6 +169,10 @@ export const convertCard = (originalCard: ScryfallCard): Card => {
   const card: Card = {
     id: `scry:${originalCard.id}`,
     source: 'scryfall',
+    name: originalCard.layout !== 'split' ? cardFaces[0].name : cardFaces.map((c) => c.name).join(' // '),
+    layout: originalCard.layout,
+    cmc: 0,
+    colors: [],
     externalIds,
     cardFaces,
     colorCategory: toColorCategory(cardFaces),
@@ -183,6 +187,8 @@ export const convertCard = (originalCard: ScryfallCard): Card => {
     prices: originalCard.prices,
     promo: originalCard.promo,
     rarity: originalCard.rarity,
+    related: [],
+    promoTypes: [],
     relatedUris: originalCard.related_uris,
     releasedAt: originalCard.released_at,
     reprint: originalCard.reprint,
@@ -201,8 +207,7 @@ export const convertCard = (originalCard: ScryfallCard): Card => {
   if ((originalCard.hand_modifier ?? null) !== null) card.handModifier = originalCard.hand_modifier;
   if ((originalCard.life_modifier ?? null) !== null) card.lifeModifier = originalCard.life_modifier;
   if ((originalCard.penny_rank ?? null) !== null) card.pennyRank = originalCard.penny_rank;
-  if ((originalCard.content_warning ?? null) !== null) card.contentWarning = originalCard.content_warning;
-  if ((originalCard.promo_types ?? null) !== null) card.promoTypes = originalCard.promo_types;
+  if ((originalCard.promo_types ?? null) !== null) card.promoTypes = originalCard.promo_types!;
   if ((originalCard.purchase_uris ?? null) !== null) card.purchaseUris = originalCard.purchase_uris;
   if ((originalCard.variation_of ?? null) !== null) card.variationOf = originalCard.variation_of;
   copyIfExists<{ [K in keyof Card & keyof ScryfallCard]?: ScryfallCard[K] }, ScryfallCard>(originalCard, card, [
