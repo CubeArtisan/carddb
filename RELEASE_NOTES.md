@@ -1,5 +1,15 @@
 # Release Notes
 
+## [1.1.0](https://github.com/CubeArtisan/carddb/compare/v1.0.2...v1.1.0) (2023-03-31)
+
+
+### Features
+
+* **emscripten:** Add initial data model to emscripten. ([c224c92](https://github.com/CubeArtisan/carddb/commit/c224c92442ad0b4b93e85311d5b3a3c737f31aff))
+* **filter:** Add start of the wasm filter functions. ([12fa32d](https://github.com/CubeArtisan/carddb/commit/12fa32d0b00e3910cb990c0eb9e1b7d0472a1e5f))
+* **grammar:** Finish adding all the initial value types. ([b09e287](https://github.com/CubeArtisan/carddb/commit/b09e2872d8ad4196262bce4b6926fd46fe890e9b))
+* **grammar:** Work on adding in value types to the grammar. ([9f1a05e](https://github.com/CubeArtisan/carddb/commit/9f1a05efa83f6b70b8ae3efd60680d04961798c0))
+
 ## [1.0.2](https://github.com/CubeArtisan/carddb/compare/v1.0.1...v1.0.2) (2023-02-25)
 
 
