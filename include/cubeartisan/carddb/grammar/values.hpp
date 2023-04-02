@@ -14,11 +14,11 @@ struct dollar_frac : lexy::token_production {
   static constexpr auto rule = dsl::capture(dsl::digit<dsl::decimal>) +
                                dsl::if_(dsl::peek(dsl::digit<dsl::decimal>) >>
                                         dsl::capture(dsl::digit<dsl::decimal>));
-  static constexpr auto value = lexy::callback<float>(
-      [](auto v) { return static_cast<float>(*v.begin() - '0') / 10.f; },
+  static constexpr auto value = lexy::callback<double>(
+      [](auto v) { return static_cast<double>(*v.begin() - '0') / 10.f; },
       [](auto v1, auto v2) {
-        return static_cast<float>(*v1.begin() - '0') / 10.f +
-               static_cast<float>(*v2.begin() - '0') / 100.f;
+        return static_cast<double>(*v1.begin() - '0') / 10.f +
+               static_cast<double>(*v2.begin() - '0') / 100.f;
       });
 };
 
@@ -35,22 +35,22 @@ struct integer : lexy::token_production {
   static constexpr auto value = lexy::as_integer<int>;
 };
 
-struct five_float : lexy::token_production {
+struct five_double : lexy::token_production {
   static constexpr auto rule = dsl::period + dsl::lit_c<'5'>;
   static constexpr auto value = lexy::constant(0.f);
 };
 
-struct zero_float : lexy::token_production {
+struct zero_double : lexy::token_production {
   static constexpr auto rule = dsl::period + dsl::lit_c<'0'>;
   static constexpr auto value = lexy::constant(0.f);
 };
 
 struct positive_half_integer : lexy::token_production {
   static constexpr auto rule =
-      dsl::p<positive_integer> + dsl::opt(one_of<zero_float, five_float>);
-  static constexpr auto value = lexy::callback<float>(
-      [](const unsigned int &value, const std::optional<float> &half) {
-        return static_cast<float>(value) + half.value_or(0.f);
+      dsl::p<positive_integer> + dsl::opt(one_of<zero_double, five_double>);
+  static constexpr auto value = lexy::callback<double>(
+      [](const unsigned int &value, const std::optional<double> &half) {
+        return static_cast<double>(value) + half.value_or(0.f);
       });
 };
 
@@ -58,8 +58,8 @@ struct dollars : lexy::token_production {
   static constexpr auto rule =
       dsl::p<positive_integer> + dsl::opt(dsl::period >> dsl::p<dollar_frac>);
   static constexpr auto value =
-      lexy::callback<float>([](unsigned int v, std::optional<float> frac) {
-        return static_cast<float>(v) + frac.value_or(0.f);
+      lexy::callback<double>([](unsigned int v, std::optional<double> frac) {
+        return static_cast<double>(v) + frac.value_or(0.f);
       });
 };
 

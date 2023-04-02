@@ -4,40 +4,18 @@
 #include <emscripten/bind.h>
 
 #include "cubeartisan/carddb/card.hpp"
+#include "cubeartisan/carddb/grammar/accessors.hpp"
 #include "cubeartisan/carddb/grammar/values.hpp"
+#include "cubeartisan/carddb/grammar/utils.hpp"
 
 using namespace cubeartisan::carddb;
 using namespace emscripten;
 
-// Bindings for std::vector
-namespace emscripten::internal {
-
-template <typename T, typename Allocator>
-struct BindingType<std::vector<T, Allocator>> {
-  using ValBinding = BindingType<val>;
-  using WireType = ValBinding::WireType;
-
-  static WireType toWireType(const std::vector<T, Allocator> &vec) {
-    return ValBinding::toWireType(val::array(vec));
-  }
-
-  static std::vector<T, Allocator> fromWireType(WireType value) {
-    return vecFromJSArray<T>(ValBinding::fromWireType(value));
-  }
-};
-
-template <typename T>
-struct TypeID<
-    T,
-    typename std::enable_if_t<std::is_same<
-        typename Canonicalized<T>::type,
-        std::vector<typename Canonicalized<T>::type::value_type,
-                    typename Canonicalized<T>::type::allocator_type>>::value>> {
-  static constexpr TYPEID get() { return TypeID<val>::get(); }
-};
-} // namespace emscripten::internal
 
 EMSCRIPTEN_BINDINGS(carddb) {
+  register_vector<std::string>("VectorString");
+  register_vector<int>("VectorInt");
+
   value_object<CardFace>("CardFace")
       .field("name", &CardFace::name)
       .field("manaCost", &CardFace::mana_cost)
@@ -68,6 +46,8 @@ EMSCRIPTEN_BINDINGS(carddb) {
       .field("textless", &CardFace::textless)
       .field("securityStamp", &CardFace::security_stamp);
 
+  register_vector<CardFace>("VectorCardFace");
+
   value_object<CardMetadata>("CardMetadata")
       .field("tags", &CardMetadata::tags)
       .field("price", &CardMetadata::price)
@@ -79,6 +59,8 @@ EMSCRIPTEN_BINDINGS(carddb) {
   value_object<RelatedCard>("RelatedCard")
       .field("id", &RelatedCard::id)
       .field("kind", &RelatedCard::kind);
+
+  register_vector<RelatedCard>("VectorRelatedCard");
 
   value_object<CardLegalities>("CardLegalities")
       .field("standard", &CardLegalities::standard)
@@ -122,7 +104,6 @@ EMSCRIPTEN_BINDINGS(carddb) {
       .field("collectorNumber", &Card::collector_number)
       .field("cmc", &Card::cmc)
       .field("colors", &Card::colors)
-      .field("colorCategory", &Card::color_category)
       .field("colorIdentity", &Card::color_identity)
       .field("related", &Card::related)
       .field("legalities", &Card::legalities)

@@ -25,7 +25,7 @@ struct CardFace {
   std::optional<std::string> printed_type_line;
   std::optional<std::string> watermark;
   std::optional<std::string> artist;
-  std::optional<std::vector<double>> attraction_lights;
+  std::optional<std::vector<int>> attraction_lights;
   std::string border_color;
   std::optional<std::string> flavor_name;
   std::optional<std::vector<std::string>> frame_effects;
@@ -96,7 +96,6 @@ struct Card {
   std::string collector_number;
   double cmc;
   std::vector<std::string> colors;
-  std::string color_category;
   std::string color_identity;
   std::vector<RelatedCard> related;
   CardLegalities legalities;
