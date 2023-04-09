@@ -1,16 +1,15 @@
+#include <emscripten/bind.h>
+
 #include <string>
 #include <vector>
 
-#include <emscripten/bind.h>
-
 #include "cubeartisan/carddb/card.hpp"
 #include "cubeartisan/carddb/grammar/accessors.hpp"
-#include "cubeartisan/carddb/grammar/values.hpp"
 #include "cubeartisan/carddb/grammar/utils.hpp"
+#include "cubeartisan/carddb/grammar/values.hpp"
 
 using namespace cubeartisan::carddb;
 using namespace emscripten;
-
 
 EMSCRIPTEN_BINDINGS(carddb) {
   register_vector<std::string>("VectorString");

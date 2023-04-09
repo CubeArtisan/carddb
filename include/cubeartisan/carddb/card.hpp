@@ -1,12 +1,12 @@
 #ifndef CUBEARTISAN_CARDDB_CARD_HPP
-#define CUBEARTISAN_CARDDB_CARD_HPP // NOLINT(llvm-header-guard)
+#define CUBEARTISAN_CARDDB_CARD_HPP  // NOLINT(llvm-header-guard)
 
 #include <optional>
 #include <string>
 #include <vector>
 
 namespace cubeartisan::carddb {
-struct alignas(128) CardFace { // NOLINT(readability-magic-numbers)
+struct alignas(128) CardFace {  // NOLINT(readability-magic-numbers)
   std::string name = {};
   std::vector<std::string> mana_cost = {};
   // images
@@ -37,7 +37,7 @@ struct alignas(128) CardFace { // NOLINT(readability-magic-numbers)
   bool textless = false;
 };
 
-struct alignas(128) CardMetadata { // NOLINT(readability-magic-numbers)
+struct alignas(128) CardMetadata {  // NOLINT(readability-magic-numbers)
   std::vector<std::string> tags = {};
   std::optional<double> price = std::nullopt;
   std::string notes = {};
@@ -46,12 +46,12 @@ struct alignas(128) CardMetadata { // NOLINT(readability-magic-numbers)
   std::string status = {};
 };
 
-struct alignas(64) RelatedCard { // NOLINT(readability-magic-numbers)
+struct alignas(64) RelatedCard {  // NOLINT(readability-magic-numbers)
   std::string id = {};
   std::string kind = {};
 };
 
-struct alignas(128) CardLegalities { // NOLINT(readability-magic-numbers)
+struct alignas(128) CardLegalities {  // NOLINT(readability-magic-numbers)
   std::string standard = {};
   std::string future = {};
   std::string historic = {};
@@ -73,7 +73,7 @@ struct alignas(128) CardLegalities { // NOLINT(readability-magic-numbers)
   std::string premodern = {};
 };
 
-struct alignas(128) CardPrices { // NOLINT(readability-magic-numbers)
+struct alignas(128) CardPrices {  // NOLINT(readability-magic-numbers)
   std::optional<std::string> usd = std::nullopt;
   std::optional<std::string> usd_foil = std::nullopt;
   std::optional<std::string> usd_etched = std::nullopt;
@@ -81,13 +81,13 @@ struct alignas(128) CardPrices { // NOLINT(readability-magic-numbers)
   std::optional<std::string> tix = std::nullopt;
 };
 
-struct alignas(128) CardPreviewInfo { // NOLINT(readability-magic-numbers)
+struct alignas(128) CardPreviewInfo {  // NOLINT(readability-magic-numbers)
   std::optional<std::string> previewed_at = std::nullopt;
   std::optional<std::string> source_uri = std::nullopt;
   std::optional<std::string> source = std::nullopt;
 };
 
-struct Card { // NOLINT(altera-struct-pack-align)
+struct Card {  // NOLINT(altera-struct-pack-align)
   CardLegalities legalities = {};
   CardPrices prices = {};
   std::optional<CardPreviewInfo> preview = std::nullopt;
@@ -127,6 +127,6 @@ struct Card { // NOLINT(altera-struct-pack-align)
   // purchaseUris
   // relatedUris
 };
-} // namespace cubeartisan::carddb
+}  // namespace cubeartisan::carddb
 
-#endif // CUBEARTISAN_CARDDB_CARD_HPP
+#endif  // CUBEARTISAN_CARDDB_CARD_HPP

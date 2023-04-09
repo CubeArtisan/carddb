@@ -1,10 +1,9 @@
 #ifndef CUBEARTISAN_CARDDB_GRAMMAR_VALUES_HPP
-#define CUBEARTISAN_CARDDB_GRAMMAR_VALUES_HPP // NOLINT(llvm-header-guard)
-
-#include <optional>
+#define CUBEARTISAN_CARDDB_GRAMMAR_VALUES_HPP  // NOLINT(llvm-header-guard)
 
 #include <lexy/callback.hpp>
 #include <lexy/dsl.hpp>
+#include <optional>
 
 #include "cubeartisan/carddb/grammar/utils.hpp"
 
@@ -15,9 +14,13 @@ struct dollar_frac : lexy::token_production {
                                dsl::if_(dsl::peek(dsl::digit<dsl::decimal>) >>
                                         dsl::capture(dsl::digit<dsl::decimal>));
   static constexpr auto value = lexy::callback<double>(
-      [](auto v_cont) { return static_cast<double>(*v_cont.begin() - '0') / 10.0; }, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      [](auto v_cont) {
+        return static_cast<double>(*v_cont.begin() - '0') /
+               10.0;  // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      },
       [](auto v_cont1, auto v_cont2) {
-        return static_cast<double>(*v_cont1.begin() - '0') / 10.0 + // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+        return static_cast<double>(*v_cont1.begin() - '0') /
+                   10.0 +  // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                static_cast<double>(*v_cont2.begin() - '0') / 100.0;
       });
 };
@@ -57,8 +60,8 @@ struct positive_half_integer : lexy::token_production {
 struct dollars : lexy::token_production {
   static constexpr auto rule =
       dsl::p<positive_integer> + dsl::opt(dsl::period >> dsl::p<dollar_frac>);
-  static constexpr auto value =
-      lexy::callback<double>([](unsigned int integral, std::optional<double> frac) {
+  static constexpr auto value = lexy::callback<double>(
+      [](unsigned int integral, std::optional<double> frac) {
         return static_cast<double>(integral) + frac.value_or(0.0);
       });
 };
@@ -197,7 +200,7 @@ struct string : lexy::token_production {
   };
 
   // A mapping of the simple escape sequences to their replacement values.
-  static constexpr auto escaped_symbols = lexy::symbol_table<char> //
+  static constexpr auto escaped_symbols = lexy::symbol_table<char>  //
                                               .map<'\''>('\'')
                                               .map<'"'>('"')
                                               .map<'\\'>('\\')
@@ -224,7 +227,10 @@ struct string : lexy::token_production {
 
   static constexpr auto rule = [] {
     // Everything is allowed inside a string except for control characters.
-    auto code_point = (-dsl::unicode::control).error<invalid_char>; // NOLINT(readability-static-accessed-through-instance)
+    auto code_point =
+        (-dsl::  // NOLINT(readability-static-accessed-through-instance)
+         unicode::control)
+            .error<invalid_char>;
 
     // Escape sequences start with a backlash and either map one of the symbols,
     // or a Unicode code point.
@@ -267,6 +273,6 @@ struct mana_symbol : lexy::token_production {
   static constexpr auto value = lexy::forward<std::string>;
 };
 
-} // namespace cubeartisan::carddb::grammar
+}  // namespace cubeartisan::carddb::grammar
 
-#endif // CUBEARTISAN_CARDDB_GRAMMAR_VALUES_HPP
+#endif  // CUBEARTISAN_CARDDB_GRAMMAR_VALUES_HPP
