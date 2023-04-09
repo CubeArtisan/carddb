@@ -1,5 +1,5 @@
-#ifndef CUBEARTISAN_CARDDB_GRAMMAR_VALUES
-#define CUBEARTISAN_CARDDB_GRAMMAR_VALUES
+#ifndef CUBEARTISAN_CARDDB_GRAMMAR_VALUES_HPP
+#define CUBEARTISAN_CARDDB_GRAMMAR_VALUES_HPP // NOLINT(llvm-header-guard)
 
 #include <optional>
 
@@ -15,10 +15,10 @@ struct dollar_frac : lexy::token_production {
                                dsl::if_(dsl::peek(dsl::digit<dsl::decimal>) >>
                                         dsl::capture(dsl::digit<dsl::decimal>));
   static constexpr auto value = lexy::callback<double>(
-      [](auto v) { return static_cast<double>(*v.begin() - '0') / 10.f; },
-      [](auto v1, auto v2) {
-        return static_cast<double>(*v1.begin() - '0') / 10.f +
-               static_cast<double>(*v2.begin() - '0') / 100.f;
+      [](auto v_cont) { return static_cast<double>(*v_cont.begin() - '0') / 10.0; }, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      [](auto v_cont1, auto v_cont2) {
+        return static_cast<double>(*v_cont1.begin() - '0') / 10.0 + // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+               static_cast<double>(*v_cont2.begin() - '0') / 100.0;
       });
 };
 
@@ -37,12 +37,12 @@ struct integer : lexy::token_production {
 
 struct five_double : lexy::token_production {
   static constexpr auto rule = dsl::period + dsl::lit_c<'5'>;
-  static constexpr auto value = lexy::constant(0.f);
+  static constexpr auto value = lexy::constant(0.0);
 };
 
 struct zero_double : lexy::token_production {
   static constexpr auto rule = dsl::period + dsl::lit_c<'0'>;
-  static constexpr auto value = lexy::constant(0.f);
+  static constexpr auto value = lexy::constant(0.0);
 };
 
 struct positive_half_integer : lexy::token_production {
@@ -50,7 +50,7 @@ struct positive_half_integer : lexy::token_production {
       dsl::p<positive_integer> + dsl::opt(one_of<zero_double, five_double>);
   static constexpr auto value = lexy::callback<double>(
       [](const unsigned int &value, const std::optional<double> &half) {
-        return static_cast<double>(value) + half.value_or(0.f);
+        return static_cast<double>(value) + half.value_or(0.0);
       });
 };
 
@@ -58,8 +58,8 @@ struct dollars : lexy::token_production {
   static constexpr auto rule =
       dsl::p<positive_integer> + dsl::opt(dsl::period >> dsl::p<dollar_frac>);
   static constexpr auto value =
-      lexy::callback<double>([](unsigned int v, std::optional<double> frac) {
-        return static_cast<double>(v) + frac.value_or(0.f);
+      lexy::callback<double>([](unsigned int integral, std::optional<double> frac) {
+        return static_cast<double>(integral) + frac.value_or(0.0);
       });
 };
 
@@ -224,7 +224,7 @@ struct string : lexy::token_production {
 
   static constexpr auto rule = [] {
     // Everything is allowed inside a string except for control characters.
-    auto code_point = (-dsl::unicode::control).error<invalid_char>;
+    auto code_point = (-dsl::unicode::control).error<invalid_char>; // NOLINT(readability-static-accessed-through-instance)
 
     // Escape sequences start with a backlash and either map one of the symbols,
     // or a Unicode code point.
@@ -269,4 +269,4 @@ struct mana_symbol : lexy::token_production {
 
 } // namespace cubeartisan::carddb::grammar
 
-#endif
+#endif // CUBEARTISAN_CARDDB_GRAMMAR_VALUES_HPP

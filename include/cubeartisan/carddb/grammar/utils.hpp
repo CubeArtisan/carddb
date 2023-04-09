@@ -1,5 +1,5 @@
-#ifndef CUBEARTISAN_CARDDB_GRAMMAR_UTILS
-#define CUBEARTISAN_CARDDB_GRAMMAR_UTILS
+#ifndef CUBEARTISAN_CARDDB_GRAMMAR_UTILS_HPP
+#define CUBEARTISAN_CARDDB_GRAMMAR_UTILS_HPP // NOLINT(llvm-header-guard)
 
 #include <string>
 
@@ -36,4 +36,4 @@ struct one_of_lit_rule : lexy::token_production {
 
 } // namespace cubeartisan::carddb::grammar
 
-#endif
+#endif // CUBEARTISAN_CARDDB_GRAMMAR_UTILS_HPP

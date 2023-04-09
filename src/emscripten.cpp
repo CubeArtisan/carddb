@@ -52,7 +52,7 @@ EMSCRIPTEN_BINDINGS(carddb) {
       .field("tags", &CardMetadata::tags)
       .field("price", &CardMetadata::price)
       .field("notes", &CardMetadata::notes)
-      .field("addedTmsp", &CardMetadata::added_tmsp)
+      .field("addedTmsp", &CardMetadata::added_timestamp)
       .field("finish", &CardMetadata::finish)
       .field("status", &CardMetadata::status);
 
@@ -76,11 +76,11 @@ EMSCRIPTEN_BINDINGS(carddb) {
       .field("penny", &CardLegalities::penny)
       .field("commander", &CardLegalities::commander)
       .field("brawl", &CardLegalities::brawl)
-      .field("historicbrawl", &CardLegalities::historicbrawl)
+      .field("historicbrawl", &CardLegalities::historic_brawl)
       .field("alchemy", &CardLegalities::alchemy)
-      .field("paupercommander", &CardLegalities::paupercommander)
+      .field("paupercommander", &CardLegalities::pauper_commander)
       .field("duel", &CardLegalities::duel)
-      .field("oldschool", &CardLegalities::oldschool)
+      .field("oldschool", &CardLegalities::old_school)
       .field("premodern", &CardLegalities::premodern);
 
   value_object<CardPrices>("CardPrices")

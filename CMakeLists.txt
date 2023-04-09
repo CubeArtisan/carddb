@@ -112,13 +112,8 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
 else()
   add_executable(CardDBBear "src/test.cpp")
   target_link_libraries(CardDBBear PUBLIC CardDB)
-  target_compile_options(
-    CardDBBear
-    PUBLIC $<$<CONFIG:Debug>:-gsource-map>
-           $<$<CONFIG:RelWithDebInfo>:-gsource-map>
-           $<$<CONFIG:RelWithDebInfo>:-flto> $<$<CONFIG:Release>:-flto>)
-  target_link_options(
-    CardDBBear PUBLIC $<$<CONFIG:Debug>:-gsource-map>
-    $<$<CONFIG:RelWithDebInfo>:-flto> $<$<CONFIG:RelWithDebInfo>:-gsource-map>
-    $<$<CONFIG:Release>:-flto>)
+  target_compile_options(CardDBBear PUBLIC $<$<CONFIG:RelWithDebInfo>:-flto>
+                                           $<$<CONFIG:Release>:-flto>)
+  target_link_options(CardDBBear PUBLIC $<$<CONFIG:RelWithDebInfo>:-flto>
+                      $<$<CONFIG:Release>:-flto>)
 endif()
