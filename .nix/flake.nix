@@ -19,14 +19,15 @@
           corepack enable --install-directory=$out/bin
         '';
       };
-      drv = pkgs.mkShell {
+      drv = pkgs.stdenv.mkDerivation{
         name = "cubeartisan-carddb";
         buildInputs = [
           nodejs
           pkgs.nodejs-18_x
           pkgs.pkg-config
           pkgs.emscripten
-          pkgs.conan
+          pkgs.clang_15
+          pkgs.clang-tools_15
           pkgs.cmake
           pkgs.ninja
           pkgs.closurecompiler
@@ -36,6 +37,9 @@
     {
       devShell = drv;
       defaultPackage = drv;
+      shellHook = ''
+        export CXX=clang++
+      '';
     }
   );
 }

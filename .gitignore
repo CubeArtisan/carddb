@@ -8,7 +8,6 @@ tmp/
 *.old
 .DS_Store
 .solid/
-.rollup.cache/
 build/
 .ccls-cache/
 
