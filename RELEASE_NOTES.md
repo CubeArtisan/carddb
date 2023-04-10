@@ -1,5 +1,17 @@
 # Release Notes
 
+## [1.2.0](https://github.com/CubeArtisan/carddb/compare/v1.1.0...v1.2.0) (2023-04-10)
+
+
+### Features
+
+* **grammar:** Add state machine type for handling multiple values for query. ([bf0ab1d](https://github.com/CubeArtisan/carddb/commit/bf0ab1d68fb04acee00d2a81aac79f879a35ca5a))
+
+
+### Bug Fixes
+
+* **types:** Remove colorCategory from the card object. ([ab25a9d](https://github.com/CubeArtisan/carddb/commit/ab25a9d0b6ce3abf3e1c574422159641a7b07565))
+
 ## [1.1.0](https://github.com/CubeArtisan/carddb/compare/v1.0.2...v1.1.0) (2023-03-31)
 
 
