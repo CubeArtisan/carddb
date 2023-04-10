@@ -18,7 +18,6 @@ export type {
   CardSource,
   CardFace,
   RelatedCard,
-  ColorCategory,
   Card,
 } from '@cubeartisan/carddb/types/cards';
 export type {

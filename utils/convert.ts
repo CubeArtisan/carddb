@@ -1,41 +1,7 @@
 import { createValidate } from 'typia';
 
-import type {
-  Card,
-  CardFace,
-  CardImages,
-  ColorCategory,
-  ExternalCardIds,
-  ManaSymbol,
-} from '@cubeartisan/carddb/types/cards';
+import type { Card, CardFace, CardImages, ExternalCardIds, ManaSymbol } from '@cubeartisan/carddb/types/cards';
 import type { Color, ScryfallCard, ScryfallCardFace } from '@cubeartisan/carddb/types/scryfall';
-
-const toColorCategory = (faces: CardFace[]): ColorCategory => {
-  let seen: ManaSymbol | null = null;
-  for (const face of faces) {
-    if (face.typeLine.includes('Land')) return 'Land';
-  }
-  for (const face of faces) {
-    for (let symbol of face.manaCost) {
-      if (symbol.startsWith('H')) symbol = symbol[1] as ManaSymbol;
-      if (['W', 'U', 'B', 'R', 'G'].includes(symbol)) {
-        if (seen && seen !== symbol) return 'Multicolored';
-        seen = symbol;
-      } else if (
-        !(symbol.includes('P') || symbol.includes('2') || Array.from(symbol).every((c) => '0123456789S½∞'.includes(c)))
-      ) {
-        if (symbol.includes('/')) return 'Hybrid';
-        return 'Multicolored';
-      }
-    }
-  }
-  if (seen === 'W') return 'White';
-  if (seen === 'U') return 'Blue';
-  if (seen === 'B') return 'Black';
-  if (seen === 'R') return 'Red';
-  if (seen === 'G') return 'Green';
-  return 'Colorless';
-};
 
 const COLOR_COMBINATIONS: Color[][] = [
   [],
@@ -175,7 +141,6 @@ export const convertCard = (originalCard: ScryfallCard): Card => {
     colors: [],
     externalIds,
     cardFaces,
-    colorCategory: toColorCategory(cardFaces),
     colorIdentity: sortColors(originalCard.color_identity),
     legalities: originalCard.legalities,
     oversized: originalCard.oversized,

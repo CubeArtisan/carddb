@@ -196,17 +196,6 @@ export type RelatedCard = {
   kind: 'token' | 'meld_part' | 'meld_result' | 'combo_piece';
 };
 
-export type ColorCategory =
-  | 'White'
-  | 'Blue'
-  | 'Black'
-  | 'Red'
-  | 'Green'
-  | 'Hybrid'
-  | 'Multicolored'
-  | 'Colorless'
-  | 'Land';
-
 export type CardStatus = 'Not Owned' | 'Ordered' | 'Owned' | 'Premium Owned' | 'Proxied';
 
 export type CardMetadata = {
@@ -243,7 +232,6 @@ export type Card = {
    */
   cmc: number;
   collectorNumber: string;
-  colorCategory: ColorCategory;
   colorIdentity: Color[];
   related: RelatedCard[];
   legalities: ScryfallLegalities;

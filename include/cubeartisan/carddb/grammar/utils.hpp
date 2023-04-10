@@ -1,10 +1,9 @@
-#ifndef CUBEARTISAN_CARDDB_GRAMMAR_UTILS
-#define CUBEARTISAN_CARDDB_GRAMMAR_UTILS
-
-#include <string>
+#ifndef CUBEARTISAN_CARDDB_GRAMMAR_UTILS_HPP
+#define CUBEARTISAN_CARDDB_GRAMMAR_UTILS_HPP  // NOLINT(llvm-header-guard)
 
 #include <lexy/callback.hpp>
 #include <lexy/dsl.hpp>
+#include <string>
 
 namespace cubeartisan::carddb::grammar {
 namespace dsl = lexy::dsl;
@@ -15,7 +14,8 @@ constexpr auto one_of = ((dsl::peek(Types::rule) >> dsl::p<Types>) | ...);
 template <auto... rules>
 constexpr auto one_of_value = ((dsl::peek(rules) >> rules) | ...);
 
-template <typename T> struct no_extra {
+template <typename T>
+struct no_extra {
   static constexpr auto rule = dsl::p<T> + dsl::eof;
   static constexpr auto value =
       lexy::forward<typename decltype(T::value)::return_type>;
@@ -34,6 +34,6 @@ struct one_of_lit_rule : lexy::token_production {
   };
 };
 
-} // namespace cubeartisan::carddb::grammar
+}  // namespace cubeartisan::carddb::grammar
 
-#endif
+#endif  // CUBEARTISAN_CARDDB_GRAMMAR_UTILS_HPP
