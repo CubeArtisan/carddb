@@ -44,7 +44,7 @@
         "@types/node": "^18.15.11",
         "@types/prettier": "^2.7.2",
         "@typescript-eslint/eslint-plugin": "^5.57.1",
-        "@typescript-eslint/parser": "^5.57.1",
+        "@typescript-eslint/parser": "^5.62.0",
         "big-json": "^3.2.0",
         "commitizen": "^4.3.0",
         "conventional-changelog-cli": "^2.2.2",
