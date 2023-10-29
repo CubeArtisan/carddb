@@ -158,6 +158,14 @@ using card_rec = rec_fn<Card, T>;
 
 namespace grammar {
 
+// TODO: legalities
+
+// TODO: prices
+
+// TODO: preview
+
+// TODO: metadata
+
 struct source_accessor : one_of_lit_rule<"source"> {
   static constexpr auto value =
       lexy::callback<card_rec<std::string>>([](auto...) {
@@ -178,6 +186,134 @@ struct name_accessor : one_of_lit_rule<"name", "n"> {
       });
 };
 
+struct layout_accessor : one_of_lit_rule<"layout"> {
+  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...)) {
+    return [](const Card &card) {
+      return std::tuple{card.layout, each_face<[](const CardFace &face) { return face.layout; }>{}};
+    };
+  });
+};
+
+// TODO: collector_number
+
+// TODO: color_identity
+
+struct rarity_accessor : one_of_lit_rule<"rarity", "r"> {
+  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...) {
+    return [](const Card &card) { return std::tuple{ card.rarity, card_rec<std::string>{}}; };
+  });
+};
+
+// TODO: released_at
+
+struct set_name_accessor : one_of_lit_rule<"setname"> {
+  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...) {
+    return [](const Card &card) { return std::tuple{ card.set_name, card_rec<std::string>{}}; };
+  });
+};
+
+struct set_type_accessor : one_of_lit_rule<"settype"> {
+  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...) {
+    return [](const Card &card) { return std::tuple{ card.set_type, card_rec<std::string>{}}; };
+  });
+};
+
+struct set_accessor : one_of_lit_rule<"set", "s"> {
+  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...) {
+    return [](const Card &card) { return std::tuple{ card.set, card_rec<std::string>{}}; };
+  });
+};
+
+// TODO: Hand modifier
+
+// TODO: life modifier
+
+// TODO: variation_of
+
+// TODO: colors
+
+// TODO: related
+
+// TODO: keywords
+
+// TODO: finishes
+
+// TODO: games
+
+// TODO: promo_types
+
+// TODO: edhrec_rank
+
+// TODO: penny_rank
+
+struct cmc_accessor : one_of_lit_rule<"cmc"> {
+  static constexpr auto value = lexy::callback<card_rec<double>>([](auto...) {
+   return [](const Card& card) { return std::tuple { card.cmc, each_face<[](const CardFace &face) { return face.cmc; }}; };
+});
+};
+
+// TODO: oversized
+
+// TODO: reserved
+
+// TODO: booster
+
+// TODO: digital
+
+// TODO: promo
+
+// TODO: reprint
+
+// TODO: variation
+
+// TODO: mana_cost
+
+// TODO: color_indicator
+
+// TODO: loyalty
+
+// TODO: power
+
+// TODO: toughness
+
+// TODO: flavor_text
+
+// TODO: printed_name
+
+// TODO: printed_text
+
+// TODO: printed_type_line
+
+// TODO: watermark
+
+// TODO: artist
+
+// TODO: attraction_lights
+
+struct border_accessor : one_of_lit_rule<"border"> {
+  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...){
+        return each_face<[](const CardFace &face) { return face.border_color; }>{}; });
+};
+
+// TODO: flavor_name
+
+// TODO: frame_effects
+
+struct frame_accessor : one_of_lit_rule<"frame"> {
+  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...){
+    return each_face<[](const CardFace &face) { return face.frame; }>{}; });
+};
+
+// TODO: security_stamp
+
+// TODO: full_art
+
+// TODO: highres_image
+
+// TODO: story_spotlight
+
+// TODO: textless
+
 struct type_accessor : one_of_lit_rule<"type"> {
   static constexpr auto value =
       lexy::callback<card_rec<std::string>>([](auto...) {
@@ -187,7 +323,7 @@ struct type_accessor : one_of_lit_rule<"type"> {
 
 struct string_field {
   static constexpr auto rule =
-      one_of<source_accessor, name_accessor, type_accessor>;
+      one_of<source_accessor, name_accessor, type_accessor, layout_accessor, rarity_accessor>;
 
   static constexpr auto value = lexy::forward<card_rec<std::string>>;
 };

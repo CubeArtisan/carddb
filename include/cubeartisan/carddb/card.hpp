@@ -113,7 +113,7 @@ struct Card {  // NOLINT(altera-struct-pack-align)
   std::vector<std::string> keywords = {};
   std::vector<std::string> finishes = {};
   std::vector<std::string> games = {};
-  std::vector<std::string> promo_types;
+  std::vector<std::string> promo_types = {};
   std::optional<double> ehdrec_rank = std::nullopt;
   std::optional<double> penny_rank = std::nullopt;
   double cmc = 0.0;
