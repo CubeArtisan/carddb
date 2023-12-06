@@ -31,7 +31,7 @@
     "dependencies": {
         "ts-node": "^10.9.1",
         "ttypescript": "^1.5.15",
-        "typia": "^3.7.3"
+        "typia": "^5.3.4"
     },
     "devDependencies": {
         "@discoveryjs/json-ext": "^0.5.7",
