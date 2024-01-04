@@ -17,6 +17,7 @@ include(FetchContent)
 FetchContent_Declare(lexy URL https://lexy.foonathan.net/download/lexy-src.zip)
 FetchContent_MakeAvailable(lexy)
 
+add_subdirectory(extern/magic_enum EXCLUDE_FROM_ALL)
 add_subdirectory(extern/fmt EXCLUDE_FROM_ALL)
 
 add_library(
@@ -38,7 +39,8 @@ set_target_properties(
              CXX_STANDARD_REQUIRED ON
              CXX_EXTENSIONS OFF)
 
-target_link_libraries(CardDB INTERFACE fmt::fmt foonathan::lexy)
+target_link_libraries(CardDB INTERFACE fmt::fmt foonathan::lexy
+                                       magic_enum::magic_enum)
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
@@ -46,6 +48,8 @@ write_basic_package_version_file(
   VERSION 0.0.1
   COMPATIBILITY AnyNewerVersion)
 get_filename_component(PREJS ./emscripten/pre.js ABSOLUTE)
+
+message(${CMAKE_SYSTEM_NAME})
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
   add_executable(CardDBWasmWebWorker "src/emscripten.cpp")

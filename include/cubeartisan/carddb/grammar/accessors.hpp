@@ -187,7 +187,7 @@ struct name_accessor : one_of_lit_rule<"name", "n"> {
 };
 
 struct layout_accessor : one_of_lit_rule<"layout"> {
-  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...)) {
+  static constexpr auto value = lexy::callback<card_rec<std::string>>([](auto...) {
     return [](const Card &card) {
       return std::tuple{card.layout, each_face<[](const CardFace &face) { return face.layout; }>{}};
     };
@@ -248,7 +248,7 @@ struct set_accessor : one_of_lit_rule<"set", "s"> {
 
 struct cmc_accessor : one_of_lit_rule<"cmc"> {
   static constexpr auto value = lexy::callback<card_rec<double>>([](auto...) {
-   return [](const Card& card) { return std::tuple { card.cmc, each_face<[](const CardFace &face) { return face.cmc; }}; };
+   return [](const Card& card) { return std::tuple { card.cmc, each_face<[](const CardFace &face) { return face.cmc; }>{}}; };
 });
 };
 

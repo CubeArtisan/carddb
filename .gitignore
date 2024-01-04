@@ -553,3 +553,4 @@ push-docker.ps1
 # Ignore typescript source map files
 *.d.ts.map
 .rollup.cache/
+.emscripten_cache/

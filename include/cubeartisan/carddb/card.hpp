@@ -5,14 +5,34 @@
 #include <string>
 #include <vector>
 
+#include <magic_enum.hpp>
+#include <magic_enum_containers.hpp>
+
+// TODO: Implement
+enum struct ManaSymbol {
+};
+
+enum struct Color {
+  W,
+  U,
+  B,
+  R,
+  G
+};
+
+// TODO: Implement
+struct CardImages {
+};
+
 namespace cubeartisan::carddb {
 struct alignas(128) CardFace {  // NOLINT(readability-magic-numbers)
   std::string name = {};
-  std::vector<std::string> mana_cost = {};
-  // images
+  std::vector<ManaSymbol> mana_cost = {};
+  CardImages images = {};
+  std::optional<magic_enum::containers::set<Color>> color_indicator = {};
   double cmc = 0.0;
-  std::vector<std::string> color_indicator = {};
-  std::vector<std::string> colors = {};
+  magic_enum::containers::set<Color> colors = {};
+  // TODO: Make Enum
   std::optional<std::string> layout = std::nullopt;
   std::optional<std::string> loyalty = std::nullopt;
   std::optional<std::string> power = std::nullopt;

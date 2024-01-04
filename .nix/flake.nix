@@ -23,23 +23,28 @@
         name = "cubeartisan-carddb";
         buildInputs = [
           nodejs
-          pkgs.nodejs-18_x
+          pkgs.nodejs_20
           pkgs.pkg-config
           pkgs.emscripten
-          pkgs.clang_15
-          pkgs.clang-tools_15
+          pkgs.clang_16
+          pkgs.clang-tools_16
           pkgs.cmake
           pkgs.ninja
           pkgs.closurecompiler
         ];
+        shellHook = ''
+          export CXX=clang++
+          export EM_CACHE=`pwd`/.emscripten_cache
+          if [[ ! -d $EM_CACHE ]] then
+            cp -r ${pkgs.emscripten}/share/emscripten/cache $EM_CACHE
+            chmod u+rwX -R $EM_CACHE
+          fi
+        '';
       };
     in
     {
       devShell = drv;
       defaultPackage = drv;
-      shellHook = ''
-        export CXX=clang++
-      '';
     }
   );
 }
